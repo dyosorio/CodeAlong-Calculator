@@ -76,7 +76,55 @@
          };
 
         /* I don't understand why this var perform function is so important but if is not place here before the clearBtn.onclick function, then the clear-btn doesn't work*/ 
-        var performOperation = (clickOnj) => {}
+        var performOperation = (clickObj) => {
+            var operator = clickObj.target.innerText;
+
+            switch (operator) {
+                case '+':
+                    pendingVal = displayVal;
+                    displayVal = '0';
+                    displayValElement.innerText = displayVal;
+                    evalStringArray.push(pendingVal);
+                    evalStringArray.push('+');
+                    break;
+
+                case '-':
+                    pendingVal = displayVal;
+                    displayVal = '0';
+                    displayValElement.innerText = displayVal;
+                    evalStringArray.push(pendingVal);
+                    evalStringArray.push('-');
+                    break;
+
+                case 'x':
+                    pendingVal = displayVal;
+                    displayVal = '0';
+                    displayValElement.innerText = displayVal;
+                    evalStringArray.push(pendingVal);
+                    evalStringArray.push('*');
+                    break;
+
+                case '÷':
+                    pendingVal = displayVal;
+                    displayVal = '0';
+                    displayValElement.innerText = displayVal;
+                    evalStringArray.push(pendingVal);
+                    evalStringArray.push('/');
+                    break;
+
+                case '=':
+                    evalStringArray.push(displayVal);
+                    var evaluation = eval(evalStringArray.join(' '));
+                    displayVal = evaluation + ' ';
+                    displayValElement.innerText = displayVal;
+                    evalStringArray = [];
+                    break;
+            
+                default:
+                    break;
+            }
+
+        }
 
         for (let i = 0; i < calcNumBtns.length; i++) {
         calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
