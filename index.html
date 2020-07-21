@@ -98,11 +98,20 @@
         displayVal = displayVal.slice(0, lengthOfDisplayVal - 1);
 
         /*without this if statement the back-btn doesn't work, also I had a typo in the html back-btn id so It wasn't working*/
-        if (displayVal === '') displayVal = '0';
+        if(displayVal === '') 
+        displayVal = '0';
+
         displayValElement.innerText = displayVal;
         };
 
-        // FINISH FROM 35.08 OF VIDEO 
+        decimalBtn.onclick = () => {
+            if(!displayVal.includes('.'))
+                displayVal += '.';
+            displayValElement.innerText = displayVal;
+        }
+
+
+
     </script>
 </body>
 </html>
