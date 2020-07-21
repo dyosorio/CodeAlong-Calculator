@@ -7,14 +7,14 @@
     <title>Calculator</title>
 </head>
 <body>
-    <h1>HTML Calculator</h1>
+    <h1>My first JavaScript Calculator</h1>
     <div id="calc-parent">
         <div class="row">
             <div class="column" id="calc-display-val">0</div>
         </div>
         <div class="row">
             <div class="calc-btn column" id="calc-clear">AC</div>
-            <div class="calc-btn column" id="backspace">&#8676;</div>
+            <div class="calc-btn column" id="calc-backspace">&#8676;</div>
             <div class="calc-btn calc-btn-operator column" id="calc-divide">&#247;</div>
         </div>
         <div class="row">
@@ -42,27 +42,68 @@
         </div>
     </div>
     <script>
-         var oneBtn = document.getElementById('calc-one');
-         var twoBtn = document.getElementById('calc-teo');
-         var threeBtn = document.getElementById('calc-three');
-         var fourBtn = document.getElementById('calc-four');
-         var fiveBtn = document.getElementById('calc-five');
-         var sixBtn = document.getElementById('calc-six');
-         var sevenBtn = document.getElementById('calc-seven');
-         var eightBtn = document.getElementById('calc-eight');
-         var nineBtn = document.getElementById('calc-nine');
-         var tenBtn = document.getElementById('calc-zero ');
+        var oneBtn = document.getElementById('calc-one');
+        var twoBtn = document.getElementById('calc-two');
+        var threeBtn = document.getElementById('calc-three');
+        var fourBtn = document.getElementById('calc-four');
+        var fiveBtn = document.getElementById('calc-five');
+        var sixBtn = document.getElementById('calc-six');
+        var sevenBtn = document.getElementById('calc-seven');
+        var eightBtn = document.getElementById('calc-eight');
+        var nineBtn = document.getElementById('calc-nine');
+        var zeroBtn = document.getElementById('calc-zero');
 
-         var decimalBtn = document.getElementById('calc-decimal');
-         var clearBtn = document.getElementById('calc-btn');
-         var backspaceBtn = document.getElementById('calc-backspace');
-         var displayValElement  = document.getElementById('calc-display-val');
-          
-         var calcNumBtns = document.getElementByClassName('calc-btn-num'); 
+        var decimalBtn = document.getElementById('calc-decimal');
+        var clearBtn = document.getElementById('calc-clear');
+        var backspaceBtn = document.getElementById('calc-backspace');
+        var displayValElement = document.getElementById('calc-display-val');
+        /*----Numbers were not displaying in displayVal, I had a typo in: document.getElementById('calc-backspace');--- it's been fixed now---*/
+
+        var displayVal = '0';
+        var pendingVal;
+        var evalStringArray = []; // '5+5'
+ //----------------------//         
+         var calcNumBtns = document.getElementsByClassName('calc-btn-num'); 
          var calcOperatorBtns = document.getElementsByClassName('calc-btn-operator'); 
-        
+//-----------------------//
+         var updateDisplayVal = (clickObj) => {
+            var btnText = clickObj.target.innerText;
 
+            if(displayVal === '0') 
+                displayVal = '';
+            displayVal += btnText;
+            displayValElement.innerText = displayVal;
+         };
 
+        /* I don't understand why this var perform function is so important but if is not place here before the clearBtn.onclick function, then the clear-btn doesn't work*/ 
+        var performOperation = (clickOnj) => {}
+
+        for (let i = 0; i < calcNumBtns.length; i++) {
+        calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
+        }
+
+        for (let i = 0; i < calcOperatorBtns.length; i++) {
+        calcOperatorBtns[i].addEventListener('click', performOperation, false);
+        }
+
+        clearBtn.onclick = () => {
+        displayVal = '0';
+        pendingVal = undefined;
+        evalStringArray = [];
+        displayValElement.innerHTML = displayVal;
+        };
+
+        backspaceBtn.onclick = () => {
+        let lengthOfDisplayVal = displayVal.length;
+        displayVal = displayVal.slice(0, lengthOfDisplayVal - 1);
+
+        /*without this if statement the back-btn doesn't work, also I had a typo in the html back-btn id so It wasn't working*/
+        if (displayVal === '') displayVal = '0';
+        displayValElement.innerText = displayVal;
+        };
+
+        // FINISH FROM 35.08 OF VIDEO 
     </script>
 </body>
 </html>
+
